@@ -27,4 +27,4 @@ To view the Clusters just use Gnuplot:
 gnuplot
 plot "centros.dat", "output1.dat", "output2.dat", "output3.dat"
 
-<img src="/images/input_3c.dat" alt="example"/>
+<img src="/images/input_3c.png" alt="example"/>
