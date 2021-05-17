@@ -24,7 +24,8 @@ In this way, 4 files will be generated in the "clusters" folder, as follows:
 
 To view the Clusters just use Gnuplot:
 
-gnuplot
-plot "centros.dat", "output1.dat", "output2.dat", "output3.dat"
+1- gnuplot
+
+2- plot "centros.dat", "output1.dat", "output2.dat", "output3.dat"
 
 <img src="/images/input_3c.png" alt="example"/>
