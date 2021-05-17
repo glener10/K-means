@@ -15,18 +15,6 @@ def readtable(name):
 			tabela.append(mydata)
 	return tabela
 
-def grafico( a ):
-	y=list(range(0,size(a)))
-	plot (y,a,"ro")
-	xlabel('SAMPLE')
-	ylabel('DATA')
-	show()
-
-def writefile(name,array):
-	f = open(name, 'w')
-	for item in array:
-		f.write(str(item)+"\n")
-	f.close()
 
 def column(matrix, i):
     return [float(row[i]) for row in matrix]
