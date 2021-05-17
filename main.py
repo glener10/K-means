@@ -1,11 +1,3 @@
-'''
-Usar:
-python main.py
-gnuplot
-plot "out0.dat", ... "outn.dat" ,"centros.dat"
-
-Mudar na linha 103 caso queira mudar o arquivo de train, somente 2 dimensoes
-'''
 import numpy
 from arquivos import *
 import random
