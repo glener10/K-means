@@ -1,3 +1,6 @@
+# (C) 2021 Glener Lanes Pizzolato
+
+
 import numpy
 from arquivos import *
 import random
