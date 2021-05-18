@@ -1,4 +1,4 @@
-# (C) 2021 Glener Lanes Pizzolato
+# (C) 2020 Glener Lanes Pizzolato
 
 
 import numpy
