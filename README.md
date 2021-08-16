@@ -50,8 +50,11 @@ To assist in the execution of the code we will have 2 auxiliary flags:
 
 -i    Choose the path of the input file (2 dimensions)
 
-Example: python main.py -i ./data/input.dat -c 3
 
+```bash
+#Example
+python main.py -i ./data/input.dat -c 3
+```
 
 In this way, 4 files will be generated in the "clusters" folder, as follows:
 - centros.dat
