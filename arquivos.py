@@ -1,5 +1,12 @@
-from pylab import *
-from random import *
+try:
+	from pylab import *
+	from random import *
+except ImportError as error:
+	print("1. Install requirements:")
+	print("  pip3 install --upgrade pip")
+	print("  pip3 install -r requirements.txt ")
+	print()
+	exit(-1)
 
 def readtable(name):
 	f = open(name, 'r')

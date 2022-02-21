@@ -40,31 +40,33 @@ $ sudo apt-get install gnuplot
 ```
 
 
-
-
 # Demo
 
-To assist in the execution of the code we will have 2 auxiliary flags:
+To assist in the execution of the code we will have 3 auxiliary flags:
 
 -c    Choose the number of clusters
 
 -i    Choose the path of the input file (2 dimensions)
 
+-o    Choose the path of the output file
+
 
 ```bash
 #Example
-python main.py -i ./data/input.dat -c 3
+python3 main.py -i ./data/input.dat -c 3 -o ./clusters/
 ```
 
 In this way, 4 files will be generated in the "clusters" folder, as follows:
 - centros.dat
-- output1.dat
-- output2.dat
-- output3.dat
+- cluster1.dat
+- cluster2.dat
+- cluster3.dat
 
 To view the Clusters just use Gnuplot:
 
 ```bash
+$ cd ./clusters/
+
 $ gnuplot
 
 $ plot "centros.dat", "output1.dat", "output2.dat", "output3.dat"

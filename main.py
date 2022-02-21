@@ -1,39 +1,49 @@
-# (C) 2020 Glener Lanes Pizzolato
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
+__author__ = 'All'
+__email__ = '{glenerpizzolato.aluno}, @unipampa.edu.br'
+#__version__ = '{1}.{0}.{0}'
 
-import numpy
-from arquivos import *
-import random
-import argparse
+try:
+	from arquivos import *
+	import argparse
+except ImportError as error:
+	print("1. Install requirements:")
+	print("  pip3 install --upgrade pip")
+	print("  pip3 install -r requirements.txt ")
+	print("2. Install Gnuplot:")
+	print("  sudo apt-get install gnuplot")
+	print()
+	exit(-1)
 
-NUMBER_CLUSTERS = 3
-OUT_NAME = "./clusters/output"
-INPUT_NAME = "./data/input.dat"
+DEFAULT_CLUSTERS = 3
+DEFAULT_OUTPUT = "./clusters/"
+DEFAULT_INPUT = "./data/input.dat"
 
 
 def d(x1,y1,x2,y2):
 	return sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2))
 
-
-def kmeans(data, NUMBER_CLUSTERS):
+def kmeans(data, cluster_number,output):
 	x0=column(data,0)
 	y0=column(data,1)
 
-	out = [0] * (NUMBER_CLUSTERS+1)
-	xM = [0] * (NUMBER_CLUSTERS)
-	yM = [0] * (NUMBER_CLUSTERS)
-	elements = [0] * NUMBER_CLUSTERS
+	out = [0] * (cluster_number+1)
+	xM = [0] * (cluster_number)
+	yM = [0] * (cluster_number)
+	elements = [0] * cluster_number
 	cluster = []
 
 	tam_data = -1
 
-	for i in range(0,NUMBER_CLUSTERS):
+	for i in range(0,cluster_number):
 		elements[i] = 0
-		aux_out = OUT_NAME + ("%d.dat"%(i+1))
+		aux_out = output + ("cluster%d.dat"%(i+1))
 		out[i] = open(aux_out,"wt")
 
 	for i in range(0,len(x0)):
-		aux = randint(0,NUMBER_CLUSTERS-1)
+		aux = randint(0,cluster_number-1)
 		cluster.append(aux)
 		elements[cluster[tam_data]] = elements[cluster[tam_data]] +1
 		tam_data = tam_data + 1
@@ -42,7 +52,7 @@ def kmeans(data, NUMBER_CLUSTERS):
 	change = 1
 	while(change == 1):
 		change = 0
-		for i in range(0,NUMBER_CLUSTERS):
+		for i in range(0,cluster_number):
 			xM[i] = 0.0
 			yM[i] = 0.0
 			for j in range(0,tam_data):
@@ -57,12 +67,12 @@ def kmeans(data, NUMBER_CLUSTERS):
 				xM[i]=0.0
 				yM[i]=0.0
 
-		for i in range(0,NUMBER_CLUSTERS):
+		for i in range(0,cluster_number):
 			elements[i] = 0
 
 		for j in range(0,tam_data):
 			distance = d(x0[j],y0[j],xM[cluster[j]],yM[cluster[j]])
-			for i in range(0,NUMBER_CLUSTERS):
+			for i in range(0,cluster_number):
 				dist_current=d(x0[j],y0[j],xM[i],yM[i])
 				if (dist_current < distance):
 					distance = dist_current
@@ -72,29 +82,44 @@ def kmeans(data, NUMBER_CLUSTERS):
 					elements[i] = elements[i] + 1	
 
 	for i in range(0,tam_data):
-		for k in range(0,NUMBER_CLUSTERS):
+		for k in range(0,cluster_number):
 			if(cluster[i] == k):
 				out[k].write("%f"%x0[i])
 				out[k].write(" %f\n"%y0[i])
 
-	out[NUMBER_CLUSTERS] = open("./clusters/centros.dat","wt")
+	out[cluster_number] = open("%s/centros.dat"%(output),"wt")
 
-	for i in range(0,NUMBER_CLUSTERS):
-		out[NUMBER_CLUSTERS].write("%f "%xM[i])
-		out[NUMBER_CLUSTERS].write("%f\n"%yM[i])
+	for i in range(0,cluster_number):
+		out[cluster_number].write("%f "%xM[i])
+		out[cluster_number].write("%f\n"%yM[i])
 
-	for i in range(0,NUMBER_CLUSTERS):
+	print("To plot the graph run the commands:")
+	print()
+	print("$ cd %s"%(output))
+	print("$ gnuplot")
+	print("$ plot 'centros.dat'", end="")
+
+	for i in range(0,cluster_number):
 		out[k].close()
+		print(", 'cluster%d.dat'"%(i+1), end="")
 
+	print("to finish run $ exit")
+	print()
+		
+
+def add_arguments(parser):
+	parser.add_argument("--clusters", "-c", help="Number of Clusters", default=DEFAULT_CLUSTERS, type=int)
+	parser.add_argument("--input", "-i", help="path to input File", default=DEFAULT_INPUT, type=str)
+	parser.add_argument("--output", "-o", help="path to output File", default=DEFAULT_OUTPUT, type=str)
+	return parser
 
 def main():
-	parser = argparse.ArgumentParser(description='K-means Implementation')
-	parser.add_argument("--clusters", "-c", help="Number of Clusters", default=NUMBER_CLUSTERS, type=int)
-	parser.add_argument("--input", "-i", help="Name of Input File", default=INPUT_NAME, type=str)
+	parser = argparse.ArgumentParser(description='K-means')
+	parser = add_arguments(parser)
 	args = parser.parse_args()
 
 	data = readtable(args.input)
+	kmeans(data,args.clusters,args.output)
 
-	kmeans(data,args.clusters)
-main()
-
+if __name__ == '__main__':
+	exit(main())
