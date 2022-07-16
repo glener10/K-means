@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 __author__ = 'All'
-__email__ = '{glenerpizzolato.aluno}, @unipampa.edu.br'
+__email__ = '{glenerpizzolato}, @gmail.com'
 #__version__ = '{1}.{0}.{0}'
 
 try:
@@ -103,7 +103,7 @@ def kmeans(data, cluster_number,output):
 		out[k].close()
 		print(", 'cluster%d.dat'"%(i+1), end="")
 
-	print("to finish run $ exit")
+	print("\n\nto finish run:\n$ exit")
 	print()
 		
 
