@@ -15,12 +15,12 @@ def readtable(name):
 	for x in lines:
 		result.append(x)
 	f.close()
-	tabela = []
+	table = []
 	for x in range(0,len(result)):
 		mydata=[_f for _f in (result[x].strip()).split(" ") if _f]
 		if (mydata):
-			tabela.append(mydata)
-	return tabela
+			table.append(mydata)
+	return table
 
 
 def column(matrix, i):

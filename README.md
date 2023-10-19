@@ -50,7 +50,7 @@ python3 main.py -i ./data/input.dat -c 3 -o ./clusters/
 
 In this way, 4 files will be generated in the "clusters" folder, as follows:
 
-- centros.dat
+- centers.dat
 - cluster1.dat
 - cluster2.dat
 - cluster3.dat
@@ -62,7 +62,7 @@ $ cd ./clusters/
 
 $ gnuplot
 
-$ plot "centros.dat", "output1.dat", "output2.dat", "output3.dat"
+$ plot "centers.dat", "output1.dat", "output2.dat", "output3.dat"
 ```
 
 <img src="/images/input_3c.png" alt="example"/>

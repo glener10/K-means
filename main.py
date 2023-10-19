@@ -6,7 +6,7 @@ __email__ = '{glenerpizzolato}, @gmail.com'
 #__version__ = '{1}.{0}.{0}'
 
 try:
-	from arquivos import *
+	from files import *
 	import argparse
 except ImportError as error:
 	print("1. Install requirements:")
@@ -35,7 +35,7 @@ def kmeans(data, cluster_number,output):
 	elements = [0] * cluster_number
 	cluster = []
 
-	tam_data = -1
+	data_size = -1
 
 	for i in range(0,cluster_number):
 		elements[i] = 0
@@ -45,8 +45,8 @@ def kmeans(data, cluster_number,output):
 	for i in range(0,len(x0)):
 		aux = randint(0,cluster_number-1)
 		cluster.append(aux)
-		elements[cluster[tam_data]] = elements[cluster[tam_data]] +1
-		tam_data = tam_data + 1
+		elements[cluster[data_size]] = elements[cluster[data_size]] +1
+		data_size = data_size + 1
 		#print cluster[i]
 
 	change = 1
@@ -55,7 +55,7 @@ def kmeans(data, cluster_number,output):
 		for i in range(0,cluster_number):
 			xM[i] = 0.0
 			yM[i] = 0.0
-			for j in range(0,tam_data):
+			for j in range(0,data_size):
 				if(cluster[j] == i):
 					xM[i] = xM[i] + x0[j]
 					yM[i] = yM[i] + y0[j]
@@ -70,7 +70,7 @@ def kmeans(data, cluster_number,output):
 		for i in range(0,cluster_number):
 			elements[i] = 0
 
-		for j in range(0,tam_data):
+		for j in range(0,data_size):
 			distance = d(x0[j],y0[j],xM[cluster[j]],yM[cluster[j]])
 			for i in range(0,cluster_number):
 				dist_current=d(x0[j],y0[j],xM[i],yM[i])
@@ -81,13 +81,13 @@ def kmeans(data, cluster_number,output):
 				if(cluster[j] == i):
 					elements[i] = elements[i] + 1	
 
-	for i in range(0,tam_data):
+	for i in range(0,data_size):
 		for k in range(0,cluster_number):
 			if(cluster[i] == k):
 				out[k].write("%f"%x0[i])
 				out[k].write(" %f\n"%y0[i])
 
-	out[cluster_number] = open("%s/centros.dat"%(output),"wt")
+	out[cluster_number] = open("%s/centers.dat"%(output),"wt")
 
 	for i in range(0,cluster_number):
 		out[cluster_number].write("%f "%xM[i])
@@ -97,7 +97,7 @@ def kmeans(data, cluster_number,output):
 	print()
 	print("$ cd %s"%(output))
 	print("$ gnuplot")
-	print("$ plot 'centros.dat'", end="")
+	print("$ plot 'centers.dat'", end="")
 
 	for i in range(0,cluster_number):
 		out[k].close()
@@ -109,8 +109,8 @@ def kmeans(data, cluster_number,output):
 
 def add_arguments(parser):
 	parser.add_argument("--clusters", "-c", help="Number of Clusters", default=DEFAULT_CLUSTERS, type=int)
-	parser.add_argument("--input", "-i", help="path to input File", default=DEFAULT_INPUT, type=str)
-	parser.add_argument("--output", "-o", help="path to output File", default=DEFAULT_OUTPUT, type=str)
+	parser.add_argument("--input", "-i", help="Path to input File", default=DEFAULT_INPUT, type=str)
+	parser.add_argument("--output", "-o", help="Path to output File", default=DEFAULT_OUTPUT, type=str)
 	return parser
 
 def main():
